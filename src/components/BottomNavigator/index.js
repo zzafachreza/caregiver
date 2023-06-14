@@ -67,12 +67,12 @@ export default function BottomNavigator({ state, descriptors, navigation }) {
         } else if (label === 'Suggest') {
           iconName = 'duplicate-outline';
           Newlabel = 'Suggest';
-        } else if (label === 'History') {
+        } else if (label === 'Riwayat') {
           iconName = 'receipt-outline';
-          Newlabel = 'History';
-        } else if (label === 'Favorit') {
-          iconName = 'heart-outline';
-          Newlabel = 'Favorit';
+          Newlabel = 'Riwayat';
+        } else if (label === 'Profile') {
+          iconName = 'person-outline';
+          Newlabel = 'Profile';
         }
 
         return (

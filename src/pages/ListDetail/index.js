@@ -53,13 +53,50 @@ export default function ListDetail({ navigation, route }) {
       });
   }
 
+  const MyDetail = ({ label, value }) => {
+    return (
+      <View style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 10,
 
+      }}>
+        <Text
+          style={{
+            flex: 0.5,
+            fontFamily: fonts.secondary[400],
+            padding: 3,
+            fontSize: windowWidth / 30,
+            color: colors.black,
+
+          }}>
+          {label}
+        </Text>
+        <Text style={{
+          padding: 3,
+          marginRight: 10,
+        }}>:</Text>
+        <Text
+          style={{
+            padding: 3,
+            flex: 1,
+            fontFamily: fonts.secondary[600],
+
+            fontSize: windowWidth / 25,
+            color: colors.black,
+
+          }}>
+          {value}
+        </Text>
+      </View>
+    )
+  }
 
   return (
     <SafeAreaView
       style={{
         flex: 1,
-        backgroundColor: colors.background2
+        backgroundColor: colors.zavalabs
       }}>
 
       {!buka && <View style={{
@@ -119,7 +156,7 @@ export default function ListDetail({ navigation, route }) {
                     color: colors.black,
 
                   }}>
-                  Tanggal Pembelian
+                  Tanggal
                 </Text>
                 <Text
                   style={{
@@ -133,31 +170,7 @@ export default function ListDetail({ navigation, route }) {
                 </Text>
               </View>
 
-              <View style={{
-                flexDirection: 'row'
-              }}>
-                <Text
-                  style={{
-                    flex: 1,
-                    fontFamily: fonts.secondary[400],
-                    padding: 10,
-                    fontSize: windowWidth / 30,
-                    color: colors.black,
 
-                  }}>
-                  Metode Pembayaran
-                </Text>
-                <Text
-                  style={{
-                    fontFamily: fonts.secondary[400],
-                    padding: 10,
-                    fontSize: windowWidth / 30,
-                    color: colors.black,
-
-                  }}>
-                  {item.metode}
-                </Text>
-              </View>
             </View>
 
           )}
@@ -172,7 +185,7 @@ export default function ListDetail({ navigation, route }) {
                 fontSize: windowWidth / 30,
                 color: colors.black,
               }}>
-              Detail Produk
+              Detail
             </Text>
 
             {dataDetail.map(i => {
@@ -202,16 +215,11 @@ export default function ListDetail({ navigation, route }) {
                       color: colors.black,
                     }}>{i.nama_barang}</Text>
                     <Text style={{
-                      fontFamily: fonts.secondary[400],
-                      fontSize: windowWidth / 35,
-                      color: colors.black,
-                    }}>Jumlah :  {new Intl.NumberFormat().format(i.qty)} {i.uom}</Text>
-                    <Text style={{
-                      fontFamily: fonts.secondary[400],
-                      fontSize: windowWidth / 35,
-                      color: colors.black,
-                      fontStyle: 'italic'
-                    }}>{i.note}</Text>
+                      fontFamily: fonts.secondary[800],
+                      fontSize: windowWidth / 25,
+                      color: colors.primary,
+                    }}>{i.nama_subkategori}</Text>
+
 
                   </View>
 
@@ -238,82 +246,26 @@ export default function ListDetail({ navigation, route }) {
             marginVertical: 5,
           }}>
 
-            <View style={{
-              flexDirection: 'row'
-            }}>
-              <Text
-                style={{
-                  flex: 1,
-                  fontFamily: fonts.secondary[400],
-                  padding: 10,
-                  fontSize: windowWidth / 30,
-                  color: colors.black,
+            <Text
+              style={{
+                flex: 1,
+                fontFamily: fonts.secondary[600],
+                padding: 10,
+                fontSize: windowWidth / 30,
+                color: colors.black,
 
-                }}>
-                Total Transaksi
-              </Text>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[600],
-                  padding: 10,
-                  fontSize: windowWidth / 25,
-                  color: colors.black,
+              }}>
+              Data Dibawah ini menunjukan orang yang akan dirawat
+            </Text>
 
-                }}>
-                Rp. {new Intl.NumberFormat().format(item.total_harga)}
-              </Text>
-            </View>
-            <View style={{
-              flexDirection: 'row'
-            }}>
-              <Text
-                style={{
-                  flex: 1,
-                  fontFamily: fonts.secondary[400],
-                  padding: 10,
-                  fontSize: windowWidth / 30,
-                  color: colors.black,
+            <MyDetail label="Nama" value={item.nama_pesanan} />
+            <MyDetail label="Jenis Kelamin" value={item.jk_pesanan} />
+            <MyDetail label="Umur" value={item.umur_pesanan} />
+            <MyDetail label="Catatan yang akan dirawat" value={item.catatan_pesanan} />
+            <MyDetail label="Alamat" value={item.alamat_pesanan} />
+            <MyDetail label="Catatan Kerja" value={item.catatan_kerja} />
 
-                }}>
-                Pengiriman dan biaya penanganan
-              </Text>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[600],
-                  padding: 10,
-                  fontSize: windowWidth / 25,
-                  color: colors.black,
 
-                }}>
-                Rp. {new Intl.NumberFormat().format(item.ongkir)}
-              </Text>
-            </View>
-
-            <View style={{
-              flexDirection: 'row'
-            }}>
-              <Text
-                style={{
-                  flex: 1,
-                  fontFamily: fonts.secondary[400],
-                  padding: 10,
-                  fontSize: windowWidth / 30,
-                  color: colors.black,
-
-                }}>
-                Total Transaksi
-              </Text>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[600],
-                  padding: 10,
-                  fontSize: windowWidth / 20,
-                  color: colors.black,
-
-                }}>
-                Rp. {new Intl.NumberFormat().format(item.total_bayar)}
-              </Text>
-            </View>
           </View>
 
 

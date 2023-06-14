@@ -493,7 +493,7 @@ export default function Cart({ navigation, route }) {
           <View style={{
             flex: 1,
           }}>
-            <MyButton warna={colors.primary} onPress={kirimServer} title="SIMPAN PESANAN" Icons="download" />
+            <MyButton warna={colors.primary} onPress={kirimServer} title="SELANJUTNYA" Icons="download" />
           </View>
 
         </View>}

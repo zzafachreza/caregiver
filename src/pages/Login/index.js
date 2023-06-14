@@ -31,7 +31,7 @@ export default function Login({ navigation }) {
   const [show, setShow] = useState(true);
   const [token, setToken] = useState('');
   const [data, setData] = useState({
-    telepon: '',
+    username: '',
     password: '',
   });
 
@@ -53,13 +53,13 @@ export default function Login({ navigation }) {
 
   // login ok
   const masuk = () => {
-    if (data.telepon.length === 0 && data.password.length === 0) {
+    if (data.username.length === 0 && data.password.length === 0) {
       showMessage({
-        message: 'Maaf telepon dan Password masih kosong !',
+        message: 'Maaf username dan Password masih kosong !',
       });
-    } else if (data.telepon.length === 0) {
+    } else if (data.username.length === 0) {
       showMessage({
-        message: 'Maaf telepon masih kosong !',
+        message: 'Maaf username masih kosong !',
       });
     } else if (data.password.length === 0) {
       showMessage({
@@ -137,15 +137,14 @@ export default function Login({ navigation }) {
 
           <MyGap jarak={20} />
           <MyInput
-            label="Nomor Telepon"
-            iconname="call"
-            placeholder="Masukan nomor telepon"
-            value={data.telepon}
-            keyboardType="phone-pad"
+            label="Username"
+            iconname="at"
+            placeholder="Masukan username"
+            value={data.username}
             onChangeText={value =>
               setData({
                 ...data,
-                telepon: value,
+                username: value,
               })
             }
           />

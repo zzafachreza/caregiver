@@ -145,13 +145,15 @@ export default function BarangDetail({ navigation, route }) {
                         type: 'success',
                         message: item.nama_barang + ' berhasil ditambahkan ke keranjang !'
                     })
+
+
                 } else {
                     showMessage({
                         type: 'danger',
                         message: item.nama_barang + ' sudah ada di dikeranjang kamu !'
                     })
                 }
-
+                navigation.navigate('Cart');
             });
     };
     const [uom, setUom] = useState(route.params.satuan);
@@ -485,7 +487,7 @@ export default function BarangDetail({ navigation, route }) {
                     <View style={{
                         flex: 1,
                     }}>
-                        <MyButton onPress={addToCart} warna={colors.primary} title={`Rp ${new Intl.NumberFormat().format(item.harga_barang * jumlah)} - Masukan Ke Keranjang`} Icons="cart" />
+                        <MyButton onPress={addToCart} warna={colors.primary} title={`Rp ${new Intl.NumberFormat().format(item.harga_barang * jumlah)}`} Icons="cart" />
                     </View>
                 </View>
             </View>

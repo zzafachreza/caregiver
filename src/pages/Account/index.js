@@ -8,7 +8,7 @@ import {
   Linking,
 } from 'react-native';
 import { windowWidth, fonts } from '../../utils/fonts';
-import { getData, storeData } from '../../utils/localStorage';
+import { getData, storeData, urlAPI } from '../../utils/localStorage';
 import { colors } from '../../utils/colors';
 import { MyButton, MyGap } from '../../components';
 import { Icon } from 'react-native-elements';
@@ -56,6 +56,15 @@ export default function Account({ navigation, route }) {
       flex: 1,
       backgroundColor: colors.background1,
     }}>
+      <Text style={{
+        fontFamily: fonts.secondary[800],
+        textAlign: 'center',
+        fontSize: 22,
+        padding: 10,
+        marginBottom: 10,
+        backgroundColor: colors.primary,
+        color: colors.white
+      }}>PROFILE</Text>
       <View style={{ padding: 10 }}>
 
 
@@ -134,6 +143,52 @@ export default function Account({ navigation, route }) {
               </Text>
             </View> */}
 
+            <View
+              style={{
+                marginVertical: 3,
+                padding: 10,
+                backgroundColor: colors.white,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[600],
+                  color: colors.black,
+                }}>
+                Username
+              </Text>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[400],
+                  color: colors.primary,
+                }}>
+                {user.username}
+              </Text>
+            </View>
+
+            <View
+              style={{
+                marginVertical: 3,
+                padding: 10,
+                backgroundColor: colors.white,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[600],
+                  color: colors.black,
+                }}>
+                Email
+              </Text>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[400],
+                  color: colors.primary,
+                }}>
+                {user.email}
+              </Text>
+            </View>
+
 
             <View
               style={{
@@ -206,6 +261,36 @@ export default function Account({ navigation, route }) {
               </Text>
             </View>
 
+            <View
+              style={{
+                marginVertical: 3,
+                padding: 10,
+                backgroundColor: colors.white,
+                borderRadius: 10,
+              }}>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[600],
+                  color: colors.black,
+                  marginBottom: 10,
+                }}>
+                Foto KTP
+              </Text>
+              <Image
+
+                source={{
+                  uri: urlAPI.replace("api", "") + user.foto_ktp
+                }}
+
+                style={{
+                  width: '100%',
+                  height: 200,
+                  borderRadius: 10,
+                }}
+
+              />
+            </View>
+
 
 
 
@@ -215,7 +300,7 @@ export default function Account({ navigation, route }) {
 
         {/* button */}
         <View style={{ padding: 10, flexDirection: 'row' }}>
-          <View style={{
+          {/* <View style={{
             flex: 1,
             paddingRight: 5,
           }}>
@@ -227,7 +312,7 @@ export default function Account({ navigation, route }) {
               warna={colors.secondary}
               Icons="create-outline"
             />
-          </View>
+          </View> */}
           <View style={{
             flex: 1,
             paddingLeft: 5,
@@ -237,7 +322,7 @@ export default function Account({ navigation, route }) {
               title="Keluar"
               colorText={colors.white}
               iconColor={colors.white}
-              warna={colors.primary}
+              warna={colors.black}
               Icons="log-out-outline"
             />
           </View>

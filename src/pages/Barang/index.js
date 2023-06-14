@@ -72,7 +72,7 @@ export default function ({ navigation, route }) {
           type: 'success',
           message: 'Berhasil ditambahkan ke keranjang',
         });
-        // navigation.replace('MainApp');
+        navigation.navigate('Cart');
         modalizeRef.current.close();
       });
   };
@@ -93,7 +93,7 @@ export default function ({ navigation, route }) {
     getData('user').then(res => {
       setUser(res);
       axios.post(urlAPI + '/1data_barang.php', {
-        fid_subkategori: route.params.fid_subkategori,
+        fid_subkategori: route.params.id,
         fid_user: res.id,
         key: key
       }).then(dt => {
@@ -155,45 +155,13 @@ export default function ({ navigation, route }) {
               marginHorizontal: 2,
               fontFamily: fonts.secondary[600],
             }}>
-            {item.satuan}
+            {item.nama_subkategori}
           </Text>
 
 
 
         </View>
-        <TouchableOpacity onPress={() => {
 
-          console.log(route.params.key)
-
-          if (item.suka == 0) {
-            axios.post(urlAPI + '/1add_wish.php', {
-              fid_user: user.id,
-              fid_barang: item.id
-            }).then(x => {
-              console.warn('add wishlist', x.data);
-
-              getDataBarang()
-
-
-            })
-          } else {
-            axios.post(urlAPI + '/1delete_wish.php', {
-              fid_user: user.id,
-              fid_barang: item.id
-            }).then(x => {
-              console.warn('add wishlist', x.data);
-              getDataBarang('', route.params.key)
-
-            })
-          }
-
-        }} style={{
-          width: 30,
-          marginVertical: 20,
-        }}>
-          <Icon type='ionicon' color={item.suka > 0 ? colors.danger : colors.black}
-            name='heart' />
-        </TouchableOpacity>
       </View>
       <View style={{
         justifyContent: 'center',
@@ -237,68 +205,33 @@ export default function ({ navigation, route }) {
     </View>
   );
 
-  const __renderItemKategori = ({ item }) => {
 
 
-
-    return (
-      <TouchableOpacity onPress={() => {
-        getDataBarang('', item.id);
-        // alert(item.id)
-
-
-      }} style={{
-        marginVertical: 10,
-        borderBottomWidth: 1,
-        paddingBottom: 10,
-        borderBottomColor: colors.border_list,
-        flex: 1,
-
-      }}>
-
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-
-        }}>
-          <Image style={{
-            width: 70,
-            height: 70,
-            resizeMode: 'contain'
-
-          }} source={{
-            uri: item.image
-          }} />
-        </View>
-        <Text style={{
-          textAlign: 'center',
-          color: colors.textPrimary,
-          fontFamily: fonts.secondary[600],
-          fontSize: windowWidth / 30,
-        }}>{item.nama_kategori}</Text>
-      </TouchableOpacity>
-    )
-  }
-
+  const header = route.params;
+  console.log('subkat', header)
   return (
     <SafeAreaView
 
       style={{
         flex: 1,
-        padding: 10,
 
         backgroundColor: colors.background1,
       }}>
 
+      <Text style={{
+        fontFamily: fonts.secondary[800],
+        textAlign: 'center',
+        fontSize: 22,
+        padding: 10,
+        marginBottom: 10,
+        backgroundColor: colors.primary,
+        color: colors.white
+      }}>{header.nama_subkategori.toString().toUpperCase()}</Text>
       <View style={{
         position: 'relative',
         marginBottom: 10,
       }}>
-        <TextInput value={myKey} autoCapitalize='none' onSubmitEditing={(x) => {
-          console.warn(x.nativeEvent.text);
-          setMykey(x.nativeEvent.text);
-          getDataBarang(x.nativeEvent.text);
-        }}
+        <TextInput value={myKey} autoCapitalize='none'
           onChangeText={x => setMykey(x)}
           placeholderTextColor={colors.border}
           placeholder='Masukan kata kunci' style={{

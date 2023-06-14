@@ -74,11 +74,10 @@ const MainApp = () => {
       <Tab.Screen name="Home" component={Home} />
 
 
-      <Tab.Screen name="Produk" component={BarangCari} />
+      <Tab.Screen name="Profile" component={Account} />
 
-      <Tab.Screen name="Favorit" component={Wishlist} />
 
-      <Tab.Screen name="History" component={ListData} />
+      <Tab.Screen name="Riwayat" component={ListData} />
     </Tab.Navigator>
   );
 };
@@ -571,7 +570,7 @@ export default function Router() {
         name="Checkout"
         component={Checkout}
         options={({ route, navigation }) => ({
-          title: 'Checkout',
+          title: 'Formulir Pemesanan',
           headerTintColor: colors.black,
           headerStyle: {
             backgroundColor: colors.white,
@@ -856,7 +855,7 @@ export default function Router() {
         component={ListData}
         options={({ route, navigation }) => ({
           title: 'RIWAYAT TRANSAKSI',
-          headerShown: false,
+          headerShown: true,
           headerTintColor: colors.white,
           headerStyle: {
             backgroundColor: colors.primary,
@@ -964,9 +963,9 @@ export default function Router() {
         component={ListDetail}
         options={({ route, navigation }) => ({
           title: 'LIST DETAIL',
-          headerTintColor: colors.black,
+          headerTintColor: colors.white,
           headerStyle: {
-            backgroundColor: colors.white,
+            backgroundColor: colors.primary,
             elevation: 0, // remove shadow on Android
           },
           cardStyleInterpolator: ({ current, layouts }) => {

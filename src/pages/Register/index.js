@@ -20,7 +20,7 @@ import { showMessage } from 'react-native-flash-message';
 import LottieView from 'lottie-react-native';
 import { urlAPI } from '../../utils/localStorage';
 import { Icon } from 'react-native-elements';
-
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 export default function Register({ navigation }) {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -47,8 +47,52 @@ export default function Register({ navigation }) {
     }
   };
 
+  const options = {
+    includeBase64: true,
+    quality: 1,
+  };
+
+  const getGallery = xyz => {
+    launchImageLibrary(options, response => {
+      // console.log('All Response = ', response);
+
+      // console.log('Ukuran = ', response.fileSize);
+      if (response.didCancel) {
+        // console.log('User cancelled image picker');
+      } else if (response.error) {
+        // console.log('Image Picker Error: ', response.error);
+      } else {
+        if (response.fileSize <= 2000000) {
+          let source = { uri: response.uri };
+          switch (xyz) {
+            case 1:
+              setData({
+                ...data,
+                foto_ktp: `data:${response.type};base64, ${response.base64}`,
+              });
+              break;
+            case 2:
+              setData({
+                ...data,
+                foto_ktp: `data:${response.type};base64, ${response.base64}`,
+              });
+              break;
+          }
+        } else {
+          showMessage({
+            message: 'Ukuran Foto Terlalu Besar Max 500 KB',
+            type: 'danger',
+          });
+        }
+      }
+    });
+  };
+
   const [data, setData] = useState({
     nama_lengkap: '',
+    email: '',
+    username: '',
+    foto_ktp: 'https://zavalabs.com/nogambar.jpg',
     password: '',
     telepon: '',
     alamat: ''
@@ -151,7 +195,34 @@ export default function Register({ navigation }) {
 
 
 
+          <MyGap jarak={10} />
+          <MyInput
+            label="Username"
+            iconname="at"
+            placeholder="Masukan username"
+            value={data.username}
+            onChangeText={value =>
+              setData({
+                ...data,
+                username: value,
+              })
+            }
+          />
 
+          <MyGap jarak={10} />
+          <MyInput
+            label="Email"
+            iconname="mail"
+            placeholder="Masukan email"
+
+            value={data.email}
+            onChangeText={value =>
+              setData({
+                ...data,
+                email: value,
+              })
+            }
+          />
 
 
           <MyGap jarak={10} />
@@ -186,6 +257,8 @@ export default function Register({ navigation }) {
 
 
 
+
+
           <MyGap jarak={10} />
           <MyInput
             label="Password"
@@ -201,23 +274,43 @@ export default function Register({ navigation }) {
             }
           />
 
-          {!show && <TouchableOpacity onPress={() => {
-            setShow(true)
-          }} style={{
-            paddingHorizontal: 5,
-            paddingVertical: 10,
-            justifyContent: 'flex-end',
-            alignItems: 'flex-end',
-            flexDirection: 'row'
+          <TouchableOpacity onPress={() => getGallery(1)} style={{
+            width: '100%',
+            marginTop: 10,
+            height: 220,
+            padding: 10,
+            overflow: 'hidden',
+            borderWidth: 1,
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderColor: colors.primary
           }}>
-            <Icon size={windowWidth / 25} color={colors.textPrimary} type='ionicon' name='eye-off-outline' />
-            <Text style={{
-              left: 5,
-              fontFamily: fonts.secondary[600],
-              fontSize: windowWidth / 30,
-              color: colors.textPrimary,
-            }}>Hide Password</Text>
-          </TouchableOpacity>}
+            {data.foto_ktp !== 'https://zavalabs.com/nogambar.jpg' && <Image source={{
+              uri: data.foto_ktp
+            }} style={{
+              width: '100%',
+              height: 200,
+              borderRadius: 5,
+            }} />}
+            {data.foto_ktp == 'https://zavalabs.com/nogambar.jpg' &&
+              <View style={{
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}>
+                <Image source={require('../../assets/camera.png')} style={{
+                  width: 40,
+                  height: 40,
+                }} />
+                <Text style={{
+                  fontFamily: fonts.secondary[400],
+                  fontSize: 12,
+                  marginTop: 10,
+                }}>Upload Foto KTP</Text>
+              </View>
+
+            }
+          </TouchableOpacity>
 
 
           <MyGap jarak={20} />

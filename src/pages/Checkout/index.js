@@ -216,6 +216,7 @@ export default function Checkout({ navigation, route }) {
       setBank(c.data);
       setKirim({
         ...kirim,
+        jk_pesanan: 'Laki-laki',
         bank: c.data[0].nama_bank,
       })
     })
@@ -246,7 +247,7 @@ export default function Checkout({ navigation, route }) {
         type: 'danger'
       })
     } else {
-      setLoading(true)
+      // setLoading(true)
       console.log('kirim', kirim);
       axios.post(urlAPI + '/1add_transaksi.php', kirim).then(rr => {
         console.log(rr.data)
@@ -260,7 +261,7 @@ export default function Checkout({ navigation, route }) {
 
           // Linking.openURL('https://api.whatsapp.com/send?phone=' + comp.tlp + rr.data)
 
-          navigation.replace('ListData');
+          // navigation.replace('ListData');
         }, 1500)
       })
 
@@ -287,41 +288,56 @@ export default function Checkout({ navigation, route }) {
               color: colors.textPrimary,
               fontFamily: fonts.secondary[600],
               fontSize: windowWidth / 30
-            }}>Pesananmu siap diteruskan ke toko, silahkan tulis catatan apabila ada yang ingin di tanyakan</Text>
-            {/* <Text style={{
-              fontFamily: fonts.secondary[400],
-              fontSize: windowWidth / 30,
-              color: colors.textPrimary,
+            }}>Data Dibawah ini menunjukan orang yang akan dirawat</Text>
 
-            }}>{user.nama_lengkap}</Text>
-            <Text style={{
-              fontFamily: fonts.secondary[400],
-              fontSize: windowWidth / 30,
-              color: colors.textPrimary
-            }}>{user.telepon}</Text>
-            <Text style={{
-              fontFamily: fonts.secondary[400],
-              fontSize: windowWidth / 30,
-              color: colors.textPrimary
-            }}>{user.alamat}</Text> */}
           </View>
 
 
-
-
-
-
-
-
+          {/* FORM */}
 
           <View style={{
             padding: 10,
           }}>
             <MyInput onChangeText={x => setKirim({
               ...kirim,
-              catatan: x
-            })} placeholder="Masukan catatan untuk pesanan" iconname="create-outline" label="Catatan untuk Pesanan" />
+              nama_pesanan: x
+            })} iconname="create-outline" label="Nama" />
+            <MyGap jarak={5} />
+            <MyPicker value={kirim.jk_pesanan} onValueChange={x => {
+              setKirim({
+                ...kirim,
+                jk_pesanan: x
+              })
+            }} data={[
+              { value: 'Laki-laki', label: 'Laki-laki' },
+              { value: 'Perempuan', label: 'Perempuan' },
+            ]} iconname="create-outline" label="Jenis Kelamin" />
+            <MyGap jarak={5} />
+            <MyInput onChangeText={x => setKirim({
+              ...kirim,
+              umur_pesanan: x
+            })} keyboardType='number-pad' iconname="create-outline" label="Umur" />
+            <MyGap jarak={5} />
+            <MyInput onChangeText={x => setKirim({
+              ...kirim,
+              catatan_pesanan: x
+            })} iconname="create-outline" label="Catatan yang akan dirawat" />
+
+
+            <MyGap jarak={5} />
+            <MyInput onChangeText={x => setKirim({
+              ...kirim,
+              alamat_pesanan: x
+            })} iconname="create-outline" label="Alamat" />
+            <MyGap jarak={5} />
+            <MyInput onChangeText={x => setKirim({
+              ...kirim,
+              catatan_kerja: x
+            })} iconname="create-outline" label="Catatan Kerja" />
+
+
           </View>
+
 
 
           <View
@@ -396,77 +412,49 @@ export default function Checkout({ navigation, route }) {
 
 
 
+
+          <View style={{
+            flexDirection: 'row',
+            paddingHorizontal: 10,
+          }}>
+            <Text style={{
+              flex: 1,
+              fontFamily: fonts.secondary[400],
+              fontSize: windowWidth / 30
+            }}>Total Pembayaran</Text>
+            <Text style={{
+              fontFamily: fonts.secondary[600],
+              fontSize: windowWidth / 20
+            }}>
+              Rp. {new Intl.NumberFormat().format(parseFloat(route.params.harga_total) + 0)}
+            </Text>
+          </View>
+
+          <UploadFoto
+            onPress1={() => getCamera(1)}
+            onPress2={() => getGallery(1)}
+            label="Upload Bukti Pembayaran"
+            foto={foto1}
+          />
+
+
+
+          <View style={{ padding: 10, backgroundColor: colors.white, }}>
+            <MyButton
+              onPress={simpan}
+              title="SIMPAN"
+              warna={colors.primary}
+              Icons="cloud-upload"
+              style={{
+                justifyContent: 'flex-end',
+              }}
+            />
+          </View>
+
+
+
         </ScrollView>
 
-        <View style={{
-          flexDirection: 'row',
-          paddingHorizontal: 10,
-        }}>
-          <Text style={{
-            flex: 1,
-            fontFamily: fonts.secondary[400],
-            fontSize: windowWidth / 30
-          }}>Total Transaksi</Text>
-          <Text style={{
-            fontFamily: fonts.secondary[400],
-            fontSize: windowWidth / 25
-          }}>
-            Rp. {new Intl.NumberFormat().format(route.params.harga_total)}
-          </Text>
-        </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingHorizontal: 10,
-        }}>
-          <Text style={{
-            flex: 1,
-            fontFamily: fonts.secondary[400],
-            fontSize: windowWidth / 30
-          }}>Pengiriman dan biaya penanganan</Text>
-          <Text style={{
-            fontFamily: fonts.secondary[400],
-            fontSize: windowWidth / 25
-          }}>
-            Rp. {new Intl.NumberFormat().format(8500)}
-          </Text>
-        </View>
-        <View style={{
-          flexDirection: 'row',
-          paddingHorizontal: 10,
-        }}>
-          <Text style={{
-            flex: 1,
-            fontFamily: fonts.secondary[400],
-            fontSize: windowWidth / 30
-          }}>Total Pembayaran</Text>
-          <Text style={{
-            fontFamily: fonts.secondary[600],
-            fontSize: windowWidth / 20
-          }}>
-            Rp. {new Intl.NumberFormat().format(parseFloat(route.params.harga_total) + 8500)}
-          </Text>
-        </View>
-
-        <UploadFoto
-          onPress1={() => getCamera(1)}
-          onPress2={() => getGallery(1)}
-          label="Upload Bukti Pembayaran"
-          foto={foto1}
-        />
-
-
-
-        <View style={{ padding: 10, backgroundColor: colors.white, }}>
-          <MyButton
-            onPress={simpan}
-            title="TERUSKAN ORDER KE TOKO"
-            warna={colors.primary}
-            Icons="cloud-upload"
-            style={{
-              justifyContent: 'flex-end',
-            }}
-          />
-        </View>
 
 
 

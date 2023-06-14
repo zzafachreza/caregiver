@@ -47,7 +47,7 @@ export default function ({ navigation, route }) {
           fid_user: res.id,
         })
         .then(x => {
-          console.log(x.data);
+          console.log('transaksi', x.data);
           setData(x.data);
         });
     });
@@ -153,13 +153,21 @@ export default function ({ navigation, route }) {
 
   return (
     <>
-      <MyHeader />
+
       <ScrollView
 
         style={{
-          padding: 10,
           backgroundColor: colors.background1,
         }}>
+        <Text style={{
+          fontFamily: fonts.secondary[800],
+          textAlign: 'center',
+          fontSize: 22,
+          padding: 10,
+          marginBottom: 10,
+          backgroundColor: colors.primary,
+          color: colors.white
+        }}>RIWAYAT</Text>
         <FlatList
           data={data}
           renderItem={renderItem}

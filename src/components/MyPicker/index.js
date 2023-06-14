@@ -32,9 +32,9 @@ export default function MyPicker({
         <Text
           style={{
             fontFamily: fonts.secondary[600],
-            color: colors.primary,
+            color: colors.black,
             left: 10,
-            fontSize: 16,
+            fontSize: 12,
             ...styleLabel,
           }}>
           {label}
@@ -54,7 +54,8 @@ export default function MyPicker({
         </Text>
       )}
       <View style={{
-        borderWidth: 1,
+        borderWidth: 0,
+        backgroundColor: colors.zavalabs,
         borderRadius: 10,
         fontFamily: fonts.secondary[600],
         borderColor: colors.primary,

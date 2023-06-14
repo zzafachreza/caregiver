@@ -77,7 +77,7 @@ export default function Home({ navigation }) {
 
 
   const getDataBarang = () => {
-    axios.post(urlAPI + '/1data_barang.php').then(res => {
+    axios.post(urlAPI + '/1data_subkategori.php').then(res => {
 
       setProduk(res.data);
     })
@@ -111,11 +111,13 @@ export default function Home({ navigation }) {
   const _renderItemProduk = ({ item }) => {
     return (
       <TouchableOpacity onPress={() => {
-        if (item.sewa > 0) {
-          Alert.alert(MYAPP, 'Unit sudah ada yang pesan');
-        } else {
-          navigation.navigate('BarangDetail', item)
-        }
+        // if (item.sewa > 0) {
+        //   Alert.alert(MYAPP, 'Unit sudah ada yang pesan');
+        // } else {
+        //   navigation.navigate('BarangDetail', item)
+        // }
+        navigation.navigate('Barang', item)
+
       }} style={{
         marginHorizontal: 5,
         borderRadius: 5,
@@ -180,22 +182,35 @@ export default function Home({ navigation }) {
         flex: 1,
         backgroundColor: colors.white,
       }}>
-      <MyHeader />
       <ScrollView style={{
         backgroundColor: colors.background1
       }}>
+
+        <View style={{
+          padding: 10,
+          flexDirection: 'row',
+          alignItems: 'center'
+        }}>
+          <Image source={require('../../assets/logo.png')} style={{
+            width: 50,
+            height: 50,
+            marginVertical: 5,
+          }} />
+          <Text style={{
+            left: 10,
+            color: colors.primary,
+            fontFamily: fonts.secondary[800],
+            fontSize: 30,
+          }}>CAREGIVER</Text>
+        </View>
+
         <MyCarouser />
 
 
         {/* list Kategoti */}
         <View>
 
-          <Image source={require('../../assets/logo.png')} style={{
-            width: 60,
-            height: 60,
-            marginVertical: 5,
-            alignSelf: 'center'
-          }} />
+
 
           <View style={{
             flex: 1,

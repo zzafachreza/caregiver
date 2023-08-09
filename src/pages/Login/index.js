@@ -166,12 +166,24 @@ export default function Login({ navigation }) {
 
           <MyGap jarak={40} />
           {valid && (
-            <MyButton
-              warna={colors.primary}
-              title="LOGIN"
-              Icons="log-in"
-              onPress={masuk}
-            />
+            <>
+              <MyButton
+                warna={colors.primary}
+                title="LOGIN"
+                Icons="log-in"
+                onPress={masuk}
+              />
+              <MyGap jarak={20} />
+              <MyButton
+                warna={colors.secondary}
+                colorText={colors.white}
+                iconColor={colors.white}
+                title="DAFTAR LAMARAN"
+                Icons="create"
+                onPress={() => navigation.navigate('Lamar')}
+              />
+
+            </>
           )}
 
           <TouchableOpacity onPress={() => navigation.navigate('Register')} style={{

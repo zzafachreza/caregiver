@@ -48,6 +48,7 @@ import Wishlist from './Wishlist';
 import BarangDetail from './BarangDetail';
 import BarangEdit from './BarangEdit';
 import BarangCari from './BarangCari';
+import Lamar from './Lamar';
 
 
 
@@ -107,5 +108,6 @@ export {
   Wishlist,
   BarangDetail,
   BarangEdit,
-  BarangCari
+  BarangCari,
+  Lamar
 };

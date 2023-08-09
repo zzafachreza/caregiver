@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Image,
   Linking,
+  ScrollView,
 } from 'react-native';
 import { windowWidth, fonts } from '../../utils/fonts';
 import { getData, storeData, urlAPI } from '../../utils/localStorage';
@@ -70,83 +71,10 @@ export default function Account({ navigation, route }) {
 
         {/* data detail */}
         <View style={{ padding: 10 }}>
-
-
-          <MyGap jarak={10} />
-          <View>
-            {/* <View
-              style={{
-                marginVertical: 3,
-                padding: 10,
-                backgroundColor: colors.white,
-                borderRadius: 10,
-              }}>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[600],
-                  color: colors.black,
-                }}>
-                Customer ID
-              </Text>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[400],
-                  color: colors.primary,
-                }}>
-                {user.id_customer}
-              </Text>
-            </View>
-
+          <ScrollView>
             <View
               style={{
                 marginVertical: 3,
-                padding: 10,
-                backgroundColor: colors.white,
-                borderRadius: 10,
-              }}>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[600],
-                  color: colors.black,
-                }}>
-                Nama Toko
-              </Text>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[400],
-                  color: colors.primary,
-                }}>
-                {user.nama_toko}
-              </Text>
-            </View>
-
-            <View
-              style={{
-                marginVertical: 3,
-                padding: 10,
-                backgroundColor: colors.white,
-                borderRadius: 10,
-              }}>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[600],
-                  color: colors.black,
-                }}>
-                Alamat Toko
-              </Text>
-              <Text
-                style={{
-                  fontFamily: fonts.secondary[400],
-                  color: colors.primary,
-                }}>
-                {user.alamat_toko}
-              </Text>
-            </View> */}
-
-            <View
-              style={{
-                marginVertical: 3,
-                padding: 10,
                 backgroundColor: colors.white,
                 borderRadius: 10,
               }}>
@@ -290,33 +218,6 @@ export default function Account({ navigation, route }) {
 
               />
             </View>
-
-
-
-
-
-          </View>
-        </View>
-
-        {/* button */}
-        <View style={{ padding: 10, flexDirection: 'row' }}>
-          {/* <View style={{
-            flex: 1,
-            paddingRight: 5,
-          }}>
-            <MyButton
-              onPress={() => navigation.navigate('EditProfile', user)}
-              title="Edit Profile"
-              colorText={colors.white}
-              iconColor={colors.white}
-              warna={colors.secondary}
-              Icons="create-outline"
-            />
-          </View> */}
-          <View style={{
-            flex: 1,
-            paddingLeft: 5,
-          }}>
             <MyButton
               onPress={btnKeluar}
               title="Keluar"
@@ -325,8 +226,11 @@ export default function Account({ navigation, route }) {
               warna={colors.black}
               Icons="log-out-outline"
             />
-          </View>
+          </ScrollView>
         </View>
+
+        {/* button */}
+
       </View>
     </SafeAreaView>
   );

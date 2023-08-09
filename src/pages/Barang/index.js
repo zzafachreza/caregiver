@@ -85,7 +85,7 @@ export default function ({ navigation, route }) {
 
 
 
-
+  const [tmp, setTmp] = useState([]);
 
   const getDataBarang = (key = '') => {
     setLoading(true);
@@ -101,6 +101,7 @@ export default function ({ navigation, route }) {
         setMykey('');
         setLoading(false);
         setData(dt.data);
+        setTmp(dt.data);
         console.log(dt.data)
       });
     })
@@ -231,8 +232,22 @@ export default function ({ navigation, route }) {
         position: 'relative',
         marginBottom: 10,
       }}>
-        <TextInput value={myKey} autoCapitalize='none'
-          onChangeText={x => setMykey(x)}
+        <TextInput autoCapitalize='none'
+          onChangeText={x => {
+
+            if (x.length == 0) {
+              setData(tmp)
+            } else {
+
+              const filtered = data.filter(i => i.nama_barang.toLowerCase().indexOf(x.toLowerCase()) > -1);
+              setData(filtered);
+
+
+            }
+
+
+
+          }}
           placeholderTextColor={colors.border}
           placeholder='Masukan kata kunci' style={{
             fontFamily: fonts.secondary[400],

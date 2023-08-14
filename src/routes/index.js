@@ -60,6 +60,7 @@ import {
   BarangEdit,
   BarangCari,
   Lamar,
+  Artikel,
 } from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '../components';
@@ -257,6 +258,30 @@ export default function Router() {
         component={Kuis}
         options={{
           headerTitle: 'Kuis',
+          headerShown: false,
+
+          cardStyleInterpolator: ({ current, layouts }) => {
+            return {
+              cardStyle: {
+                transform: [
+                  {
+                    translateX: current.progress.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [layouts.screen.width, 0],
+                    }),
+                  },
+                ],
+              },
+            };
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="Artikel"
+        component={Artikel}
+        options={{
+          headerTitle: 'Artikel',
           headerShown: false,
 
           cardStyleInterpolator: ({ current, layouts }) => {

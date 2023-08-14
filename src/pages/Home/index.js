@@ -29,6 +29,7 @@ import MyHeader from '../../components/MyHeader';
 
 export default function Home({ navigation }) {
   const [user, setUser] = useState({});
+  const [artikel, setArtikel] = useState([]);
   const [kategori, setKategori] = useState([]);
 
   const [produk, setProduk] = useState([]);
@@ -63,8 +64,14 @@ export default function Home({ navigation }) {
     getDataBarang();
 
     axios.post(urlAPI + '/company.php').then(c => {
-      console.log(c.data);
+
       setComp(c.data);
+    })
+
+    axios.post(urlAPI + '/1data_artikel.php').then(aa => {
+      console.log('artikel', aa.data);
+      setArtikel(aa.data);
+
     })
 
     if (isFocused) {
@@ -72,6 +79,35 @@ export default function Home({ navigation }) {
     }
     return unsubscribe;
   }, [isFocused]);
+
+
+  const __renderItemArtikel = ({ item }) => {
+    return (
+      <TouchableWithoutFeedback onPress={() => navigation.navigate('Artikel', item)}>
+        <View style={{
+          margin: 5,
+          width: 220,
+          justifyContent: 'center',
+          padding: 10,
+          backgroundColor: colors.white,
+        }}>
+          <Image source={{
+            uri: item.foto
+          }} style={{
+            width: 200,
+            borderRadius: 10,
+            height: 130
+          }} />
+          <Text style={{
+            marginTop: 5,
+            height: 30,
+            fontFamily: fonts.secondary[600],
+            fontSize: 14
+          }}>{item.judul}</Text>
+        </View>
+      </TouchableWithoutFeedback>
+    )
+  }
 
 
 
@@ -215,7 +251,9 @@ export default function Home({ navigation }) {
           <View style={{
             flex: 1,
           }}>
-            <FlatList numColumns={3} data={produk} renderItem={_renderItemProduk} />
+            <FlatList numColumns={2} data={produk} renderItem={_renderItemProduk} />
+
+            <FlatList showsHorizontalScrollIndicator={false} horizontal data={artikel} renderItem={__renderItemArtikel} />
           </View>
         </View>
       </ScrollView>

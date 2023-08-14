@@ -21,6 +21,13 @@ import LottieView from 'lottie-react-native';
 import { urlAPI } from '../../utils/localStorage';
 import { Icon } from 'react-native-elements';
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+
+import DocumentPicker, {
+    DirectoryPickerResponse,
+    DocumentPickerResponse,
+    isInProgress,
+    types,
+} from 'react-native-document-picker'
 export default function Lamar({ navigation }) {
     const windowWidth = Dimensions.get('window').width;
     const windowHeight = Dimensions.get('window').height;
@@ -31,7 +38,7 @@ export default function Lamar({ navigation }) {
     const [valid, setValid] = useState(false);
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
+    const [path, setPath] = useState('');
     const validate = text => {
         // console.log(text);
         let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -74,7 +81,7 @@ export default function Lamar({ navigation }) {
                         case 2:
                             setData({
                                 ...data,
-                                foto_wajah: `data:${response.type};base64, ${response.base64}`,
+                                foto_lamaran: `data:${response.type};base64, ${response.base64}`,
                             });
                             break;
                     }
@@ -93,10 +100,14 @@ export default function Lamar({ navigation }) {
         nama_barang: '',
         harga_barang: '',
         keterangan: '',
+        email_pekerja: '',
+        telepon_pekerja: '',
+        keterangan: '',
         foto_wajah: 'https://zavalabs.com/nogambar.jpg',
+        foto_lamaran: 'https://zavalabs.com/nogambar.jpg',
     });
 
-    const simpan = () => {
+    const simpan = async () => {
         if (
             data.nama_barang.length === 0 &&
             data.harga_barang.length === 0 &&
@@ -119,32 +130,77 @@ export default function Lamar({ navigation }) {
             });
         } else {
             setLoading(true);
-            console.log(data);
-            axios
-                .post(urlAPI + '/register_lamar.php', data)
-                .then(res => {
-                    console.warn(res.data);
-                    let err = res.data.split('#');
 
-                    // console.log(err[0]);
-                    if (err[0] == 50) {
-                        setTimeout(() => {
-                            setLoading(false);
-                            showMessage({
-                                message: err[1],
-                                type: 'danger',
-                            });
-                        }, 1200);
-                    } else {
-                        setTimeout(() => {
-                            showMessage({
-                                message: res.data,
-                                type: 'success'
-                            });
-                            navigation.goBack();
-                        }, 1200);
-                    }
-                });
+
+            const formData = new FormData();
+
+            formData.append('fid_subkategori', data.fid_subkategori);
+            formData.append('nama_barang', data.nama_barang);
+            formData.append('harga_barang', data.harga_barang);
+            formData.append('keterangan', data.keterangan);
+            formData.append('email_pekerja', data.email_pekerja);
+            formData.append('telepon_pekerja', data.telepon_pekerja);
+            formData.append('keterangan', data.keterangan);
+            formData.append('foto_wajah', data.foto_wajah);
+            formData.append('nama_pdf', path.name);
+            formData.append('file_attachment', path);
+
+            // console.log(formData);
+
+            // let zavalabs = await fetch(
+            //     urlAPI + '/register_lamar.php',
+            //     {
+            //         method: 'post',
+            //         body: formData,
+            //         headers: {
+            //             'Content-Type': 'multipart/form-data; ',
+            //         },
+            //     }
+            // );
+
+            axios.post(urlAPI + '/register_lamar.php', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            }).then(res => {
+                showMessage({
+                    type: 'success',
+                    message: 'Data Kamu Berhasil Di Kirim'
+                })
+
+                navigation.goBack();
+            })
+
+            // let responseJson = await zavalabs.json();
+
+
+
+
+
+            // console.log(data);
+            // axios
+            //     .post(urlAPI + '/register_lamar.php', data)
+            //     .then(res => {
+            //         console.warn(res.data);
+            //         let err = res.data.split('#');
+
+            //         // console.log(err[0]);
+            //         if (err[0] == 50) {
+            //             setTimeout(() => {
+            //                 setLoading(false);
+            //                 showMessage({
+            //                     message: err[1],
+            //                     type: 'danger',
+            //                 });
+            //             }, 1200);
+            //         } else {
+            //             setTimeout(() => {
+            //                 showMessage({
+            //                     message: res.data,
+            //                     type: 'success'
+            //                 });
+            //                 navigation.goBack();
+            //             }, 1200);
+            //         }
+            //     });
         }
     };
 
@@ -224,12 +280,44 @@ export default function Lamar({ navigation }) {
                         label="Harga / Gaji"
                         iconname="options"
                         placeholder="Masukan harga / gaji"
+                        keyboardType='number-pad'
 
                         value={data.harga_barang}
                         onChangeText={value =>
                             setData({
                                 ...data,
                                 harga_barang: value,
+                            })
+                        }
+                    />
+
+                    <MyGap jarak={10} />
+                    <MyInput
+                        label="Email"
+                        iconname="mail"
+                        placeholder="Masukan alamat email"
+
+                        value={data.email_pekerja}
+                        onChangeText={value =>
+                            setData({
+                                ...data,
+                                email_pekerja: value,
+                            })
+                        }
+                    />
+
+                    <MyGap jarak={10} />
+                    <MyInput
+                        label="Telepon"
+                        iconname="call"
+                        placeholder="Masukan telepon"
+                        keyboardType='phone-pad'
+
+                        value={data.telepon_pekerja}
+                        onChangeText={value =>
+                            setData({
+                                ...data,
+                                telepon_pekerja: value,
                             })
                         }
                     />
@@ -274,6 +362,66 @@ export default function Lamar({ navigation }) {
                             </View>
 
                         }
+                    </TouchableOpacity>
+
+
+                    <TouchableOpacity onPress={async () => {
+
+                        try {
+                            const res = await DocumentPicker.pick({
+                                // Provide which type of file you want user to pick
+                                type: [DocumentPicker.types.pdf],
+                                // There can me more options as well
+                                // DocumentPicker.types.allFiles
+                                // DocumentPicker.types.images
+                                // DocumentPicker.types.plainText
+                                // DocumentPicker.types.audio
+                                // DocumentPicker.types.pdf
+                            });
+                            // Printing the log realted to the file
+                            console.log('res : ' + JSON.stringify(res));
+                            // Setting the state to show single file attributes
+                            console.log('sizw', res[0].size)
+                            if (res[0].size > 5000000) {
+                                alert('Maaf dokumen pdf maksimal 5 Mb')
+                            } else {
+                                setPath(res[0]);
+                            }
+
+
+                        } catch (err) {
+                            setSingleFile(null);
+                            // Handling any exception (If any)
+                            if (DocumentPicker.isCancel(err)) {
+                                // If user canceled the document selection
+                                alert('Canceled');
+                            } else {
+                                // For Unknown Error
+                                alert('Unknown Error: ' + JSON.stringify(err));
+                                throw err;
+                            }
+                        }
+                    }} style={{
+                        width: '100%',
+                        marginTop: 10,
+                        height: 100,
+                        padding: 10,
+                        overflow: 'hidden',
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        borderColor: colors.primary
+                    }}>
+
+                        <Text style={{ fontFamily: fonts.secondary[600], fontSize: 12, textAlign: 'center' }}>{path.name}.pdf</Text>
+                        <Text style={{
+                            fontFamily: fonts.secondary[400],
+                            fontSize: 12,
+                            marginTop: 10,
+                        }}>Upload Pdf Lamaran (Max 5 MB)</Text>
+
+
                     </TouchableOpacity>
 
 

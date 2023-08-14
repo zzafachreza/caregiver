@@ -110,6 +110,18 @@ export default function ({ navigation, route }) {
 
   };
 
+  const Bintang = ({ nilai }) => {
+
+    var myBintang = [];
+
+    for (let i = 0; i < nilai; i++) {
+      myBintang.push(
+        <Icon type='ionicon' name='star' color={colors.warning} size={10} />
+      );
+    }
+
+    return <>{myBintang}</>;
+  }
 
 
 
@@ -141,23 +153,28 @@ export default function ({ navigation, route }) {
           }}>
           Rp. {new Intl.NumberFormat().format(item.harga_barang)}
         </Text>
+        <Text
+          style={{
+            marginVertical: 5,
+            fontSize: windowWidth / 35,
+            color: colors.white,
+            width: windowWidth / 5,
+            textAlign: 'center',
+            paddingHorizontal: 5,
+            backgroundColor: colors.primary,
+            borderRadius: 3,
+            marginHorizontal: 2,
+            fontFamily: fonts.secondary[600],
+          }}>
+          {item.nama_subkategori}
+        </Text>
         <View style={{
           flexDirection: 'row',
 
         }}>
-          <Text
-            style={{
-              marginVertical: 5,
-              fontSize: windowWidth / 35,
-              color: colors.white,
-              paddingHorizontal: 5,
-              backgroundColor: colors.primary,
-              borderRadius: 3,
-              marginHorizontal: 2,
-              fontFamily: fonts.secondary[600],
-            }}>
-            {item.nama_subkategori}
-          </Text>
+          <Bintang nilai={item.rating} />
+
+
 
 
 
@@ -177,6 +194,7 @@ export default function ({ navigation, route }) {
           borderRadius: 10,
 
         }} />
+
         <TouchableOpacity onPress={() => {
           navigation.navigate('BarangDetail', item);
 

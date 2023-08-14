@@ -49,6 +49,7 @@ import BarangDetail from './BarangDetail';
 import BarangEdit from './BarangEdit';
 import BarangCari from './BarangCari';
 import Lamar from './Lamar';
+import Artikel from './Artikel';
 
 
 
@@ -109,5 +110,6 @@ export {
   BarangDetail,
   BarangEdit,
   BarangCari,
+  Artikel,
   Lamar
 };

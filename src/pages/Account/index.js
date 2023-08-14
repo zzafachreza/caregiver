@@ -218,14 +218,37 @@ export default function Account({ navigation, route }) {
 
               />
             </View>
-            <MyButton
-              onPress={btnKeluar}
-              title="Keluar"
-              colorText={colors.white}
-              iconColor={colors.white}
-              warna={colors.black}
-              Icons="log-out-outline"
-            />
+            <View style={{
+              flexDirection: 'row'
+            }}>
+              <View style={{
+                flex: 1,
+                paddingRight: 5,
+              }}>
+                <MyButton
+                  onPress={() => navigation.navigate('EditProfile')}
+                  title="Edit Profile"
+                  colorText={colors.white}
+                  iconColor={colors.white}
+                  warna={colors.primary}
+                  Icons="create-outline"
+                />
+              </View>
+              <View style={{
+                flex: 1,
+                paddingRight: 5,
+              }}>
+                <MyButton
+                  onPress={btnKeluar}
+                  title="Keluar"
+                  colorText={colors.white}
+                  iconColor={colors.white}
+                  warna={colors.black}
+                  Icons="log-out-outline"
+                />
+              </View>
+
+            </View>
           </ScrollView>
         </View>
 

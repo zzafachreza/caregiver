@@ -261,7 +261,7 @@ export default function Checkout({ navigation, route }) {
 
           // Linking.openURL('https://api.whatsapp.com/send?phone=' + comp.tlp + rr.data)
 
-          // navigation.replace('ListData');
+          navigation.replace('MainApp');
         }, 1500)
       })
 

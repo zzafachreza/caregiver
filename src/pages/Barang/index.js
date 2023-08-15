@@ -127,17 +127,33 @@ export default function ({ navigation, route }) {
 
   const renderItem = ({ item }) => (
     <View style={{
-      flexDirection: 'row',
-      marginVertical: 5,
-      borderBottomWidth: 1,
-      borderBottomColor: colors.border_list
+      flex: 1,
+      borderWidth: 1,
+      margin: 5,
+
+      borderColor: colors.primary
     }}>
+      <Image source={{
+        uri: item.image
+      }} style={{
+        alignSelf: 'center',
+        width: '100%',
+        height: 200,
+
+      }} />
       <View style={{
         flex: 1,
+        padding: 10,
       }}>
+        <View style={{
+          flexDirection: 'row',
+
+        }}>
+          <Bintang nilai={item.rating} />
+        </View>
         <Text
           style={{
-            marginVertical: 2,
+            marginTop: 5,
             fontSize: windowWidth / 30,
             color: colors.black,
             fontFamily: fonts.secondary[600],
@@ -168,32 +184,14 @@ export default function ({ navigation, route }) {
           }}>
           {item.nama_subkategori}
         </Text>
-        <View style={{
-          flexDirection: 'row',
 
-        }}>
-          <Bintang nilai={item.rating} />
-
-
-
-
-
-        </View>
 
       </View>
       <View style={{
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <Image source={{
-          uri: item.image
-        }} style={{
-          alignSelf: 'center',
-          width: 80,
-          height: 80,
-          borderRadius: 10,
 
-        }} />
 
         <TouchableOpacity onPress={() => {
           navigation.navigate('BarangDetail', item);
@@ -205,7 +203,7 @@ export default function ({ navigation, route }) {
           // modalizeRef.current.open();
 
         }} style={{
-          width: 80,
+          width: '80%',
           borderRadius: 20,
           borderWidth: 2,
           borderColor: colors.primary,
@@ -318,14 +316,18 @@ export default function ({ navigation, route }) {
           }}>
             <ActivityIndicator size="large" color={colors.primary} /></View>}
           {!loading && <FlatList
+            style={{
+              marginBottom: 100,
+            }}
             showsVerticalScrollIndicator={false}
             data={data}
+            numColumns={2}
             renderItem={renderItem}
             keyExtractor={item => item.id}
           />}
 
         </View>
-        <MyGap jarak={100} />
+
       </View>
 
 

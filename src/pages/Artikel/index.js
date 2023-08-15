@@ -22,7 +22,6 @@ export default function Artikel({ navigation, route }) {
             }} />
             <Text style={{
                 margin: 10,
-                height: 30,
                 fontFamily: fonts.secondary[600],
                 fontSize: 20
             }}>{item.judul}</Text>

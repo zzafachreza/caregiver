@@ -58,12 +58,12 @@ export default function BottomNavigator({ state, descriptors, navigation }) {
         if (label === 'Home') {
           iconName = 'home-outline';
           Newlabel = 'Home';
-        } else if (label === 'Produk') {
-          iconName = 'cube-outline';
-          Newlabel = 'Pekerja';
-        } else if (label === 'Kategori') {
-          iconName = 'grid-outline';
-          Newlabel = 'Kategori';
+        } else if (label === 'Wishlist') {
+          iconName = 'heart-outline';
+          Newlabel = 'Favorit';
+        } else if (label === 'Cart') {
+          iconName = 'cart-outline';
+          Newlabel = 'Keranjang';
         } else if (label === 'Suggest') {
           iconName = 'duplicate-outline';
           Newlabel = 'Suggest';

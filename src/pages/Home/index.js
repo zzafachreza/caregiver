@@ -100,7 +100,7 @@ export default function Home({ navigation }) {
           }} />
           <Text style={{
             marginTop: 5,
-            height: 30,
+            height: 60,
             fontFamily: fonts.secondary[600],
             fontSize: 14
           }}>{item.judul}</Text>
@@ -157,7 +157,6 @@ export default function Home({ navigation }) {
       }} style={{
         marginHorizontal: 5,
         borderRadius: 5,
-        borderWidth: 1,
 
         borderColor: colors.secondary,
         // overflow: 'hidden',
@@ -165,14 +164,7 @@ export default function Home({ navigation }) {
         marginVertical: 5,
 
       }}>
-        <Text style={{
-          textAlign: 'left',
-          color: colors.white,
-          backgroundColor: item.nama_subkategori == "Caregiver" ? colors.secondary : colors.primary,
-          padding: 5,
-          fontFamily: fonts.secondary[600],
-          fontSize: windowWidth / 32,
-        }}>{item.nama_subkategori}</Text>
+
         <View style={{
           justifyContent: 'center',
           alignItems: 'center',
@@ -180,14 +172,20 @@ export default function Home({ navigation }) {
         }}>
           <Image style={{
             opacity: item.sewa > 0 ? 0.3 : 1,
-            width: '90%',
-            height: 150,
+            width: '70%',
+            height: 100,
             resizeMode: 'contain',
             borderRadius: 10,
 
           }} source={{
             uri: item.image
           }} />
+          <Text style={{
+            color: colors.black,
+            padding: 5,
+            fontFamily: fonts.secondary[600],
+            fontSize: windowWidth / 22,
+          }}>{item.nama_subkategori}</Text>
         </View>
         {item.sewa > 0 && <Text style={{
           textAlign: 'center',

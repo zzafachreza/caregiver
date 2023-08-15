@@ -78,6 +78,9 @@ const MainApp = () => {
 
       <Tab.Screen name="Profile" component={Account} />
 
+      <Tab.Screen name="Cart" component={Cart} />
+      <Tab.Screen name="Wishlist" component={Wishlist} />
+
 
       <Tab.Screen name="Riwayat" component={ListData} />
     </Tab.Navigator>

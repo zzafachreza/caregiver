@@ -61,6 +61,7 @@ import {
   BarangCari,
   Lamar,
   Artikel,
+  Notifikasi,
 } from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { BottomNavigator } from '../components';
@@ -75,14 +76,15 @@ const MainApp = () => {
     <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} />
 
-
-      <Tab.Screen name="Profile" component={Account} />
-
       <Tab.Screen name="Cart" component={Cart} />
+
+
+
       <Tab.Screen name="Wishlist" component={Wishlist} />
 
 
       <Tab.Screen name="Riwayat" component={ListData} />
+      <Tab.Screen name="Profile" component={Account} />
     </Tab.Navigator>
   );
 };
@@ -93,6 +95,15 @@ export default function Router() {
       <Stack.Screen
         name="Splash"
         component={Splash}
+        options={{
+          headerShown: false,
+        }}
+      />
+
+
+      <Stack.Screen
+        name="Notifikasi"
+        component={Notifikasi}
         options={{
           headerShown: false,
         }}

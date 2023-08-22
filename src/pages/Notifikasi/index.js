@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,16 +7,17 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {tan} from 'react-native-reanimated';
-import {colors} from '../../utils/colors';
-import {fonts} from '../../utils/fonts';
+import { tan } from 'react-native-reanimated';
+import { colors } from '../../utils/colors';
+import { fonts } from '../../utils/fonts';
 import axios from 'axios';
-import {getData} from '../../utils/localStorage';
+import { getData, urlAPI } from '../../utils/localStorage';
 import PushNotification from 'react-native-push-notification';
-import {Swipeable} from 'react-native-gesture-handler';
-import {Icon} from 'react-native-elements';
+import { Swipeable } from 'react-native-gesture-handler';
+import { Icon } from 'react-native-elements';
+import { showMessage } from 'react-native-flash-message';
 
-export default function ListData() {
+export default function Notifikasi() {
   const [data, setData] = useState([]);
   const [user, setUser] = useState({});
 
@@ -26,8 +27,8 @@ export default function ListData() {
       console.log(res);
 
       axios
-        .post('https://zavalabs.com/sigadisbekasi/api/notifikasi.php', {
-          id_member: res.id,
+        .post(urlAPI + '/notifikasi.php', {
+          fid_user: res.id,
         })
         .then(res => {
           console.log(res.data);
@@ -42,16 +43,19 @@ export default function ListData() {
 
   const hanldeHapus = id => {
     axios
-      .post('https://zavalabs.com/sigadisbekasi/api/notifikasi_hapus.php', {
+      .post(urlAPI + '/notifikasi_hapus.php', {
         id: id,
       })
       .then(res => {
         __getData();
-        alert('Berhasil dihapus');
+        showMessage({
+          type: 'success',
+          message: 'Berhasil dihapus !'
+        })
       });
   };
 
-  const MyList = ({judul, keterangan, id}) => {
+  const MyList = ({ judul, keterangan, id, tanggal, jam }) => {
     return (
       <Swipeable
         renderRightActions={() => {
@@ -79,17 +83,15 @@ export default function ListData() {
         <View
           style={{
             marginVertical: 5,
-            //   borderRadius: 10,
             backgroundColor: colors.white,
             padding: 10,
-            elevation: 2,
             //   borderWidth: 1,
           }}>
           <View
             style={{
               flexDirection: 'row',
             }}>
-            <View style={{flex: 1, padding: 10}}>
+            <View style={{ flex: 1, padding: 10 }}>
               <Text
                 style={{
                   fontFamily: fonts.secondary[600],
@@ -104,6 +106,14 @@ export default function ListData() {
                 }}>
                 {keterangan}
               </Text>
+              <Text
+                style={{
+                  fontFamily: fonts.secondary[400],
+                  fontSize: 12,
+                  color: colors.secondary
+                }}>
+                {tanggal} Pukul {jam} WIB
+              </Text>
             </View>
           </View>
         </View>
@@ -116,6 +126,15 @@ export default function ListData() {
       style={{
         flex: 1,
       }}>
+      <Text style={{
+        fontFamily: fonts.secondary[800],
+        textAlign: 'center',
+        fontSize: 22,
+        padding: 10,
+        marginBottom: 10,
+        backgroundColor: colors.primary,
+        color: colors.white
+      }}>NOTIFIKASI</Text>
       <ScrollView>
         {data.map(item => {
           return (
@@ -123,6 +142,8 @@ export default function ListData() {
               id={item.id}
               judul={item.judul}
               keterangan={item.keterangan}
+              tanggal={item.tanggal}
+              jam={item.jam}
             />
           );
         })}

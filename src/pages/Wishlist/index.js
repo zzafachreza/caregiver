@@ -200,12 +200,22 @@ export default function ({ navigation, route }) {
 
     return (
         <>
+            <Text style={{
+                fontFamily: fonts.secondary[800],
+                textAlign: 'center',
+                fontSize: 22,
+                padding: 10,
+                marginBottom: 10,
+                backgroundColor: colors.primary,
+                color: colors.white
+            }}>FAVORIT</Text>
             <ScrollView
 
                 style={{
                     padding: 10,
                     backgroundColor: colors.background1,
                 }}>
+
                 <FlatList
                     data={data}
                     renderItem={renderItem}

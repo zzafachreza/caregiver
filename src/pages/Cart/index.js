@@ -330,6 +330,15 @@ export default function Cart({ navigation, route }) {
         // padding: 10,
         backgroundColor: colors.background1,
       }}>
+      <Text style={{
+        fontFamily: fonts.secondary[800],
+        textAlign: 'center',
+        fontSize: 22,
+        padding: 10,
+        marginBottom: 10,
+        backgroundColor: colors.primary,
+        color: colors.white
+      }}>KERANJANG</Text>
       <MyGap jarak={10} />
       <FlatList data={data} renderItem={__renderItem} />
 

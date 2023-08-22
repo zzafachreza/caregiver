@@ -127,7 +127,7 @@ export default function ({ navigation, route }) {
 
   const renderItem = ({ item }) => (
     <View style={{
-      flex: 1,
+      width: windowWidth / 2.2,
       borderWidth: 1,
       margin: 5,
 

@@ -232,10 +232,15 @@ export default function Home({ navigation }) {
           }} />
           <Text style={{
             left: 10,
+            flex: 1,
             color: colors.primary,
             fontFamily: fonts.secondary[800],
             fontSize: 30,
           }}>CAREGIVER</Text>
+
+          <TouchableOpacity onPress={() => navigation.navigate('Notifikasi')}>
+            <Icon type='ionicon' size={30} name='notifications' color={colors.secondary} />
+          </TouchableOpacity>
         </View>
 
         <MyCarouser />
@@ -249,8 +254,21 @@ export default function Home({ navigation }) {
           <View style={{
             flex: 1,
           }}>
+            <Text style={{
+              color: colors.black,
+              fontFamily: fonts.secondary[600],
+              fontSize: 18,
+              marginHorizontal: 10,
+              marginBottom: 10,
+            }}>Pilih Layanan</Text>
             <FlatList numColumns={2} data={produk} renderItem={_renderItemProduk} />
-
+            <Text style={{
+              color: colors.black,
+              fontFamily: fonts.secondary[600],
+              fontSize: 18,
+              marginHorizontal: 10,
+              marginBottom: 10,
+            }}>Artikel</Text>
             <FlatList showsHorizontalScrollIndicator={false} horizontal data={artikel} renderItem={__renderItemArtikel} />
           </View>
         </View>

@@ -5,6 +5,7 @@ import { colors } from '../../utils/colors';
 import { Image } from 'react-native';
 import { fonts } from '../../utils/fonts';
 import RenderHtml from 'react-native-render-html';
+import { ScrollView } from 'react-native';
 
 export default function Artikel({ navigation, route }) {
 
@@ -14,27 +15,30 @@ export default function Artikel({ navigation, route }) {
             flex: 1,
             backgroundColor: colors.white
         }}>
-            <Image source={{
-                uri: item.foto
-            }} style={{
-                width: '100%',
-                height: 250
-            }} />
-            <Text style={{
-                margin: 10,
-                fontFamily: fonts.secondary[600],
-                fontSize: 20
-            }}>{item.judul}</Text>
-            <View style={{
-                margin: 10,
-            }}>
-                <RenderHtml
-                    contentWidth={'100%'}
-                    source={{
-                        html: item.keterangan
-                    }}
-                />
-            </View>
+
+            <ScrollView>
+                <Image source={{
+                    uri: item.foto
+                }} style={{
+                    width: '100%',
+                    height: 250
+                }} />
+                <Text style={{
+                    margin: 10,
+                    fontFamily: fonts.secondary[600],
+                    fontSize: 20
+                }}>{item.judul}</Text>
+                <View style={{
+                    margin: 10,
+                }}>
+                    <RenderHtml
+                        contentWidth={'100%'}
+                        source={{
+                            html: item.keterangan
+                        }}
+                    />
+                </View>
+            </ScrollView>
 
         </SafeAreaView>
     )

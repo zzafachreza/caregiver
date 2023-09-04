@@ -606,7 +606,9 @@ export default function Router() {
       <Stack.Screen
         name="Cart"
         component={Cart}
+
         options={({ route, navigation }) => ({
+          headerShown: false,
           title: 'Keranjang',
           headerTintColor: colors.black,
           headerStyle: {
